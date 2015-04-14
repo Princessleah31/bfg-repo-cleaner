@@ -75,7 +75,7 @@ trait LfsBlobConverter extends TreeBlobModifier {
 
     val shaHex = encodeHexString(digest.digest())
 
-    val lfsPath = lfsObjectsDir / shaHex
+    val lfsPath = lfsObjectsDir / shaHex.substring(0, 2) / shaHex.substring(2, 4) / shaHex
 
     val ensureLfsFile = Try(if (!lfsPath.exists) tmpFile moveTo lfsPath).recover {
       case _ => lfsPath.size.contains(loader.getSize)
